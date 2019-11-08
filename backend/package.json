@@ -4,7 +4,7 @@
   "description": "FullStack MERN",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "nodemon":"nodemon src/index.js"
   },
   "author": "",
   "license": "ISC",
