@@ -6,8 +6,8 @@ router.route('/')
     .post(createUser);
 
 router.route('/:id')
-    .get(getUser)
-    .put(editUser)
+   // .get(getUser)
+    //.put(editUser)
     .delete(deleteUser);    
 
 
