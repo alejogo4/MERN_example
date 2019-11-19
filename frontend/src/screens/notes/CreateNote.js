@@ -11,16 +11,15 @@ export default class CreateNote extends Component {
         user:'',
         tittle:'',
         content:'',
-        date:new Date()
+        date:null
     }
 
     async componentDidMount(){
         let resp = await axios.get(usersURL);
         this.setState({
-            usuarios:resp.data.map(user=>user.username)
+            usuarios:resp.data.map(user=>user.username),
+            user:resp.data[0].username
         })
-
-   
     }
 
     onChangeInputs=(e)=>{
@@ -30,13 +29,21 @@ export default class CreateNote extends Component {
         })
     }
 
-    onSubmitUser = async(e)=>{
+    onSubmitNote = async(e)=>{
         e.preventDefault();
-        console.log(this.state);
+        const newTask = {
+            tittle : this.state.tittle,
+            description : this.state.content,
+            author : this.state.user,
+            date : this.state.date
+        }
+        await axios.post('http://localhost:4000/api/notes',newTask);
+        window.location.href = "/";
     }
 
     onChangeCalendar = date=>{
-        this.setState({date})
+        this.setState({date:date})
+  
     }
 
     render() {
@@ -68,7 +75,7 @@ export default class CreateNote extends Component {
                         <Calendar  onChange={this.onChangeCalendar} value={this.state.date} />
                     </div>
 
-                    <form onSubmit={this.onSubmitUser}>
+                    <form onSubmit={this.onSubmitNote}>
                             
                         <input type="submit" className="btn btn-primary" value="Crear"/>
                     </form>
